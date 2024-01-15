@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { BusCheck, BusCheckDocument } from '../schema/busCkeck.schema';
 import { Model } from 'mongoose';
 import { User, UserDocument } from '../schema/user.schema';
+import { BusCheckDto } from './dto/bus-check.dto';
 
 @Injectable()
 export class BusService {
@@ -27,9 +28,15 @@ export class BusService {
     };
   }
 
-  async saveBusCheck(busCheckDto: BusCheck) {
+  async saveBusCheck(busCheckDto: BusCheckDto) {
     const user = new this.busCheckModel(busCheckDto);
     await user.save();
+
+    await this.userModel.updateOne(
+      { name: busCheckDto.name },
+      { busRode: true },
+    );
+
     return { status: 200, message: 'Successfully checked bus ride.' };
   }
 }
