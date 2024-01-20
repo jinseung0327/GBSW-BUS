@@ -13,7 +13,7 @@ import { BusModule } from './bus/bus.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nest-base'),
+    MongooseModule.forRoot('mongodb://mongodb/nest-base'),
     SignModule,
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),

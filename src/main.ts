@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { IoAdapter } from '@nestjs/platform-socket.io';
 
 declare const module: any;
 
@@ -9,7 +8,6 @@ const port = 3030;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  app.useWebSocketAdapter(new IoAdapter(app));
   app.setGlobalPrefix('/api');
   const config = new DocumentBuilder() //
     .setTitle('API')
